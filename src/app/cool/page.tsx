@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 
 export default function Kewl() {
@@ -19,13 +18,13 @@ export default function Kewl() {
       */}
       <div className="">
         <h1>What's up! My name is Sriram :)</h1>
-        <p className="my-5">
+        <p className={`my-5`}>
           First Year Computer Science @{" "}
-          <span className="bg-white p-1.5">
+          <span className={`bg-white p-1.5`}>
             Georgia Institute of Technology
           </span>
         </p>
-        <div className="flex flex-col gap-3">
+        <div className={`flex flex-col gap-3`}>
           <li>
             I'm from Fremont, California. It's about a five hour flight trip
             from the BIG ATL 🦅🦅🦅

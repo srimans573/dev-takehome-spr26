@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+//disable typescript eslint since this file is in js
 
 //got to make sure we only send valid data to db
 const validSchema = new mongoose.Schema({

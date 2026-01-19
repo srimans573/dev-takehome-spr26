@@ -29,7 +29,7 @@ export async function GET(request: Request) {
     await connectDB();
 
     const pageSize = PAGINATION_PAGE_SIZE;
-    let totalRecords =
+    const totalRecords =
       status == "all"
         ? await Request.countDocuments()
         : await Request.countDocuments({ status: status });

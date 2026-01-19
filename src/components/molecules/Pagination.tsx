@@ -33,9 +33,14 @@ export default function Pagination({
     firstRecordOnPage + pageSize - 1,
     totalRecords
   );
-
   const isValidPage =
     firstRecordOnPage > 0 && firstRecordOnPage <= totalRecords;
+
+  if(!isValidPage){
+    return (
+      <></>
+    )
+  }
 
   const canGoPrev = firstRecordOnPage > 1;
   const canGoNext = lastRecordOnPage < totalRecords;
