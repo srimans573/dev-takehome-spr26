@@ -5,16 +5,21 @@ import { LeftArrowIcon } from "../icons/LeftArrowIcon";
 const ArrowButton = ({
   children,
   onClick,
+  disabled = false,
 }: {
   children: React.ReactNode;
   onClick?: () => void;
+  disabled?: boolean;
 }) => (
-  <div
-    className="w-8 h-8 p-1 bg-gray-fill-light rounded border border-gray-stroke justify-center items-center inline-flex"
-    onClick={onClick}
+  <button
+    type="button"
+    disabled={disabled}
+    className={`w-8 h-8 p-1 bg-gray-fill-light rounded border border-gray-stroke justify-center items-center inline-flex transition-colors
+      ${disabled ? "opacity-40 cursor-not-allowed" : "cursor-pointer hover:bg-gray-fill"}`}
+    onClick={disabled ? undefined : onClick}
   >
     {children}
-  </div>
+  </button>
 );
 
 export default function Pagination({
@@ -32,32 +37,25 @@ export default function Pagination({
   const isValidPage =
     firstRecordOnPage > 0 && firstRecordOnPage <= totalRecords;
 
-  if (!isValidPage) {
-    return <></>;
-  }
+  const canGoPrev = firstRecordOnPage > 1;
+  const canGoNext = lastRecordOnPage < totalRecords;
 
   return (
-    <div className="justify-start items-center gap-4 inline-flex text-gray-text">
+    <div className="justify-start items-center gap-4 inline-flex text-sm text-gray-text">
       {firstRecordOnPage} - {lastRecordOnPage} of {totalRecords}
       <div className="inline-flex gap-2">
-        {firstRecordOnPage > 1 && (
-          <ArrowButton
-            onClick={() => {
-              onPageChange(pageNumber - 1);
-            }}
-          >
-            <LeftArrowIcon />
-          </ArrowButton>
-        )}
-        {lastRecordOnPage < totalRecords && (
-          <ArrowButton
-            onClick={() => {
-              onPageChange(pageNumber + 1);
-            }}
-          >
-            <RightArrowIcon />
-          </ArrowButton>
-        )}
+        <ArrowButton
+          onClick={() => onPageChange(pageNumber - 1)}
+          disabled={!canGoPrev}
+        >
+          <LeftArrowIcon />
+        </ArrowButton>
+        <ArrowButton
+          onClick={() => onPageChange(pageNumber + 1)}
+          disabled={!canGoNext}
+        >
+          <RightArrowIcon />
+        </ArrowButton>
       </div>
     </div>
   );

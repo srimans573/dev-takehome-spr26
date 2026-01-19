@@ -19,21 +19,35 @@ import {
   validateMockEditStatusRequest,
 } from "@/lib/validation/mock/requests";
 
+export interface PaginatedResponse {
+  data: MockItemRequest[];
+  totalRecords: number;
+  totalPages: number;
+  currentPage: number;
+  pageSize: number;
+}
+
 export function getMockItemRequests(
   status: string | null,
   page: number
-): MockItemRequest[] {
+): PaginatedResponse {
   const sortedRequests = sortMockItemRequests(mockItemRequests);
   let filteredRequests = sortedRequests;
   if (status && isValidMockStatus(status)) {
     filteredRequests = filteredRequests.filter((req) => req.status === status);
   }
-  const paginatedRequests = paginate(
+  const paginatedResult = paginate(
     filteredRequests,
     page,
     PAGINATION_PAGE_SIZE
-  ).data;
-  return paginatedRequests;
+  );
+  return {
+    data: paginatedResult.data,
+    totalRecords: paginatedResult.totalRecords,
+    totalPages: paginatedResult.totalPages,
+    currentPage: page,
+    pageSize: PAGINATION_PAGE_SIZE,
+  };
 }
 
 export function createNewMockRequest(request: any): MockItemRequest {

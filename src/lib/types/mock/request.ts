@@ -1,10 +1,10 @@
 import { RequestStatus } from "../request";
 
 export interface MockItemRequest {
-  id: number;
+  ID: string;
   requestorName: string;
   itemRequested: string;
-  requestCreatedDate: Date;
+  createdDate: Date; //changed from itemCreatedDate to createdDate
   lastEditedDate: Date | null;
   status: RequestStatus;
 }
